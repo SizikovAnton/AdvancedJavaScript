@@ -10,10 +10,16 @@ h3 {
 }
 
 .header {
-    width: 100%;
+    max-width: 100%;
     background-color: #cecece;
-    padding: 10px 0;
-    text-align: right;
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 20px;
 }
 
 .btn {
@@ -31,9 +37,7 @@ h3 {
     cursor: pointer;
 }
 
-.btn-cart {
-    margin-right: 50px;
-}
+.btn-cart {}
 
 .buy-btn {
     float: right;
@@ -50,7 +54,8 @@ h3 {
 }
 
 .product-item {
-    max-width: 200px;
+    min-width: 200px;
+    width: 20%;
     border: 1px solid #000;
     margin: 20px;
     text-align: center;
