@@ -28,7 +28,7 @@ class Products {
         for (let item of this.data) {
             const product = new ProductItem(item);
             this.allProduct.push(product);
-            block.insertAdjacentHTML('beforeend', product.render())
+            block.insertAdjacentHTML('beforeend', product.render());
         }
     }
 }
@@ -55,5 +55,26 @@ class ProductItem {
                 </div>`
     }
 }
+
+// class Cart {
+//     constructor() {
+//         this.items //Массив с добавленными в корзину товарами (объекты класса CartItem)
+//         this.totalPrice //Общая стоимость корзины
+//         this.totalCount //Общее кол-во товаров в корзине
+//     }
+//     render() {} //Метод для отрисовки корзины. Во времня рендера подсчитывается общее кол-во и стоимость товаров, а так же удаляются из массива элементы, чей count = 0.
+//     clear() {} //Метод для полной отчистки корзины
+//     addItem() {} //Добавляем новую позицию в корзину
+//     deleteItem() {} //Удаляем позицию из корзины
+// }
+
+// class CartItem() {
+//     constructor(item) { //Конструктор принимает ссылку на экземпляр класса ProductItem
+//         this.link = item //Ссылка на экземпляр класса
+//         this.count = 1; //Колличество данного товара в корзине
+//     }
+//     plusCount() {} //Увеличение кол-ва на единицу
+//     minusCount() {} //Уменьшение кол-ва на единицу
+// }
 
 const products = new Products();
