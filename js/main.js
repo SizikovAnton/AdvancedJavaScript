@@ -31,6 +31,15 @@ class Products {
             block.insertAdjacentHTML('beforeend', product.render());
         }
     }
+    totalPrice() {
+        let totalPrice = 0;
+        for (let item of this.data) {
+            if (typeof(item.price) == 'number') {
+                totalPrice += item.price;
+            }
+        }
+        return totalPrice;
+    }
 }
 
 class ProductItem {
@@ -78,3 +87,4 @@ class ProductItem {
 // }
 
 const products = new Products();
+console.log(products.totalPrice());
