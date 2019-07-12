@@ -86,8 +86,16 @@ h3 {
     align-items: center;
 }
 
-.btn-plus,
-.btn-minus {
-    padding: 3px;
-    margin: 5px;
+.text-hover:hover {
+    color: #cceecc;
+    cursor: pointer;
+}
+
+.fa-plus,
+.fa-minus {
+    margin: 0 5px;
+}
+
+.invisible {
+    display: none;
 }
