@@ -64,3 +64,30 @@ h3 {
     width: 80%;
     /* margin: 10px auto; */
 }
+
+.cart {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.cart-row {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #000;
+    margin-top: 10px;
+    padding: 5px 0;
+}
+
+.cart-quantity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-plus,
+.btn-minus {
+    padding: 3px;
+    margin: 5px;
+}
