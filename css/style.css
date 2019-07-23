@@ -67,6 +67,7 @@
 
 .search__button {
     color: #ff8000;
+    outline: none;
     /* border: 1px solid #ff8000; */
 }
 
