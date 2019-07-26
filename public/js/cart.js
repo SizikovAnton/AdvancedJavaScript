@@ -1,9 +1,9 @@
 Vue.component('cart', {
     data() {
         return {
-            getBasketUrl: `${API}/getBasket.json`, //получить содержимое корзины
-            addBasketUrl: `${API}/addToBasket.json`, //добавить товар в корзину
-            deleteBasketUrl: `${API}/deleteFromBasket.json`, //удалить товар из корзины
+            //getBasketUrl: `${API}/getBasket.json`, //получить содержимое корзины
+            //addBasketUrl: `${API}/addToBasket.json`, //добавить товар в корзину
+            //deleteBasketUrl: `${API}/deleteFromBasket.json`, //удалить товар из корзины
             cart: {
                 totalPrice: 0,
                 totalCount: 0,
@@ -15,7 +15,7 @@ Vue.component('cart', {
     },
     methods: {
         plusCartItem(cartItem) {
-            this.$parent.getJson(this.addBasketUrl)
+            this.$parent.putJson(`/api/cart/${cartItem.id_product}`, {quantity: 1})
                 .then(data => {
                     if (data.result) {
                         cartItem.quantity++;
@@ -24,7 +24,7 @@ Vue.component('cart', {
                 });
         },
         minusCartItem(cartItem) {
-            this.$parent.getJson(this.deleteBasketUrl)
+            this.$parent.putJson(`/api/cart/${cartItem.id_product}`, {quantity: -1})
                 .then(data => {
                     if (data.result) {
                         cartItem.quantity--;
@@ -33,7 +33,7 @@ Vue.component('cart', {
                 });
         },
         deleteCartItem(cartItem) {
-            this.$parent.getJson(this.deleteBasketUrl)
+            this.$parent.delJson(`/api/cart/${cartItem.id_product}`)
                 .then(data => {
                     if (data.result) {
                         this.cart.cartItems.splice(this.cart.cartItems.indexOf(cartItem), 1);
@@ -42,19 +42,19 @@ Vue.component('cart', {
                 });
         },
         addProduct(product) {
-            this.$parent.getJson(this.addBasketUrl)
+            let temp = this.cart.cartItems.find(item => item.id_product === product.id_product);
+            if (temp) {
+                this.plusCartItem(temp);
+            } else {
+                let newCartItem = Object.assign({ quantity: 1 }, product);
+                this.$parent.postJson(`/api/cart`, newCartItem)
                 .then(data => {
-                    if (data.result) {
-                        temp = this.cart.cartItems.find(item => item.id_product === product.id_product);
-                        if (temp) {
-                            this.plusCartItem(temp);
-                        } else {
-                            let newCartItem = Object.assign({ quantity: 1 }, product);
-                            this.cart.cartItems.push(newCartItem);
-                            this.recountCart();
-                        }
+                    if(data.result){
+                        this.cart.cartItems.push(newCartItem);
+                        this.recountCart();
                     }
-                });
+                })
+            }
         },
         recountCart() {
             this.cart.totalCount = 0;
@@ -70,7 +70,7 @@ Vue.component('cart', {
                 }
             });
             if (indexDel !== -1) {
-                this.cart.cartItems.splice(indexDel, 1);
+                this.deleteCartItem(this.cart.cartItems[indexDel]);
             }
             this.cartStatus();
         },
@@ -107,7 +107,7 @@ Vue.component('cart', {
                     </div>
                 </div>`,
     mounted() {
-        this.$parent.getJson(this.getBasketUrl)
+        this.$parent.getJson(`/api/cart`)
             .then(inputCart => {
                 this.cart.totalPrice = inputCart.amount;
                 this.cart.totalCount = inputCart.countGoods;
@@ -117,6 +117,7 @@ Vue.component('cart', {
             })
             .then(() => {
                 this.cartStatus();
-            });
+            })
+            .catch(error => console.log(error));
     },
 });

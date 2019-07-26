@@ -14,7 +14,7 @@ Vue.component('product-list', {
         }
     },
     mounted() {
-        this.$parent.getJson(this.catalogUrl)
+        this.$parent.getJson('/api/getProducts')
             .then(items => {
                 for (let item of items) {
                     this.products.push(item);
